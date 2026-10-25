@@ -43,8 +43,6 @@ If the repository contains a `requirements.txt` file, run:
 python -m pip install -r requirements.txt
 ```
 
-If dependencies have not yet been listed in that file, install the required packages specified by the project instead.
-
 ### 5. Verify Python
 
 ```powershell
@@ -56,31 +54,38 @@ python -m pip --version
 
 Open the cloned folder in VS Code and explore the following directories:
 
-- `src/ocr/` — OCR processing
-- `src/preprocess/` — image preprocessing
+- `src/ocr/` — OCR processing engines (EasyOCR, standard BaseOCREngine)
+- `src/preprocess/` — image preprocessing routines (Grayscale, CLAHE, Otsu, Adaptive, 3x bicubic upscale)
 - `src/extraction/` — information extraction
 - `src/confidence/` — confidence scoring
 - `src/validation/` — validation logic
+- `config/config.yaml` — centralized system configuration
 - `data/raw/rtc_samples/` — sample input documents
-- `tests/` — tests
+- `tests/` — automated unit and integration tests
 
-### 7. Run the Project
+### 7. Run the Project and Tests
 
-Run the relevant Python entry point after completing the required configuration and dependency installation.
+Run the relevant Python entry points or test suite after completing configuration:
 
-For example, if `src/baseline.py` is configured as a standalone script:
-
+**Run the Baseline Preprocessing & OCR Pipeline:**
 ```powershell
 python -m src.baseline
 ```
 
-For OCR evaluation, if its dependencies and input paths are configured:
-
+**Run OCR Quantitative Evaluation (CER / WER):**
 ```powershell
 python -m src.evaluate_ocr
 ```
 
-Check the project configuration and script requirements before running these commands.
+**Run Unit Tests:**
+```powershell
+python -m pytest tests/ -v
+```
+
+### 8. Configuration
+
+System-wide settings (OCR engines, confidence thresholds, preprocessing parameters, and directory paths) are configured in `config/config.yaml`.
+The system dynamically loads configuration with fallback defaults via `src/config.py`.
 
 ### Troubleshooting
 

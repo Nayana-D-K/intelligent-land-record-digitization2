@@ -1,0 +1,42 @@
+# Configuration for Intelligent Land Record Digitization and Validation System
+# Karnataka State Revenue Department (Bhoomi / Kaveri / e-Stamp)
+
+ocr:
+  engine: "easyocr" # Default engine: easyocr | tesseract
+  languages:
+    - "en"
+    - "kn" # Kannada
+  gpu: false
+  easyocr_params:
+    detail: 1
+    paragraph: false
+    decoder: "greedy"
+    text_threshold: 0.5
+    low_text: 0.2
+    link_threshold: 0.4
+    canvas_size: 2560
+    mag_ratio: 1.0
+
+confidence:
+  review_threshold: 0.70 # Fields with confidence < 0.70 marked for human review
+  high_confidence_threshold: 0.85
+
+paths:
+  data_dir: "data"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  gold_dir: "data/gold"
+  synthetic_dir: "data/synthetic"
+  baseline_output_dir: "data/processed/baseline"
+
+preprocessing:
+  upscale_factor: 3.0
+  clahe:
+    clip_limit: 2.0
+    tile_grid_size: [8, 8]
+  otsu:
+    blur_kernel: [3, 3]
+  adaptive:
+    block_size: 31
+    c: 11
+
